@@ -1,5 +1,43 @@
+-- namespace
 Util = Util or {}
 
+-- Give this man cookie https://github.com/bmddota
+function Util:SetupGameRules(game_mode)
+	-- rules
+	GameRules:SetHeroRespawnEnabled(GS_ENABLE_HERO_RESPAWN)
+	GameRules:SetSameHeroSelectionEnabled(GS_ALLOW_SAME_HERO_SELECTION)
+	GameRules:SetHeroSelectionTime(GS_HERO_SELECTION_TIME)
+	GameRules:SetPreGameTime(GS_PRE_GAME_TIME)
+	GameRules:SetPostGameTime(GS_POST_GAME_TIME)
+	GameRules:SetTreeRegrowTime(GS_TREE_REGROW_TIME)
+	GameRules:SetFirstBloodActive(GS_ENABLE_FIRST_BLOOD)
+	GameRules:SetHideKillMessageHeaders(GS_HIDE_KILL_BANNERS)
+	GameRules:SetUseCustomHeroXPValues(GS_USE_CUSTOM_XP_VALUES)
+	GameRules:SetGoldPerTick(GS_GOLD_PER_TICK)
+	GameRules:SetGoldTickTime(GS_GOLD_TICK_TIME)
+	if GS_CUSTOM_TEAM_PLAYER_COUNT then
+		for team, number in pairs(GS_CUSTOM_TEAM_PLAYER_COUNT) do
+	  		GameRules:SetCustomGameTeamMaxPlayers(team, number)
+		end
+	end
+	GameRules:GetGameModeEntity():SetRecommendedItemsDisabled(GS_RECOMMENDED_BUILDS_DISABLED)
+	GameRules:GetGameModeEntity():SetFogOfWarDisabled(GS_DISABLE_FOG_OF_WAR_ENTIRELY)
+	GameRules:GetGameModeEntity():SetAnnouncerDisabled(GS_DISABLE_ANNOUNCER)
+	GameRules:GetGameModeEntity():SetFixedRespawnTime(GS_FIXED_RESPAWN_TIME) 
+	GameRules:GetGameModeEntity():SetBuybackEnabled(GS_BUYBACK_ENABLED)
+	GameRules:GetGameModeEntity():SetLoseGoldOnDeath(GS_LOSE_GOLD_ON_DEATH)
+	GameRules:GetGameModeEntity():SetMaximumAttackSpeed(GS_MAXIMUM_ATTACK_SPEED)
+	GameRules:GetGameModeEntity():SetMinimumAttackSpeed(GS_MINIMUM_ATTACK_SPEED)
+	GameRules:GetGameModeEntity():SetStashPurchasingDisabled(GS_DISABLE_STASH_PURCHASING)
+	GameRules:GetGameModeEntity():SetUseCustomHeroLevels(GS_USE_CUSTOM_HERO_LEVELS)
+	GameRules:GetGameModeEntity():SetCustomHeroMaxLevel(GS_MAX_LEVEL)
+	GameRules:GetGameModeEntity():SetCustomXPRequiredToReachNextLevel(GS_XP_PER_LEVEL_TABLE)
+	-- events
+	ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(game_mode, 'OnGameRulesStateChange'), game_mode)
+	ListenToGameEvent('entity_killed', Dynamic_Wrap(game_mode, 'OnEntityKilled'), game_mode)
+end
+
+-- explode string
 function Util:ExplodeAsString(delimeter, input_string)
 	if delimeter == '' then return false end
 	local p = 0
@@ -14,6 +52,7 @@ function Util:ExplodeAsString(delimeter, input_string)
 	return result
 end
 
+-- explode string and tries to return table filled with numbers
 function Util:ExplodeAsInt(delimeter, input_string)
 	local str_arr = Util:ExplodeAsString(delimeter, input_string)
 	if str_arr == false then return false end

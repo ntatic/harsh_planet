@@ -27,6 +27,7 @@ function AI:Distance(vector1, vector2)
 	return math.sqrt(xd * xd + yd * yd)
 end
 
+-- todo
 function AI:Basic(unit)
 	-- if unit is idle set state to AI_STATE_IDLE
 	if unit:IsIdle() then unit.ai.state = AI.STATE_IDLE end
@@ -52,22 +53,30 @@ function AI:Basic(unit)
 	-- if unit is idle move it to portal
 	if unit.ai.state == AI.STATE_IDLE then
 		unit.ai.state = AI.STATE_MOVE
+		-- setup few common vars used
 		local unit_position = unit:GetAbsOrigin()
 		local ally_portal_position = GameRules.waypoints['Special']['AllyPortal']['Position']
 		local distance_to_portal = AI:Distance(unit_position, ally_portal_position)
 		local path1_bonus_score = 0
 		local path2_bonus_score = 0
 		if unit.ai['PreferedPath'] == 1 then path2_bonus_score = 500 else path1_bonus_score = 500 end
+		-- set ally portal as current best waypoint
 		local best = {Portal = true, Score = distance_to_portal, Path = 0, Order = 0}
-		local waypoint1 = Entities:FindByNameNearest('p_enemy1_path*', unit_position, 0)
-		local waypoint2 = Entities:FindByNameNearest('p_enemy2_path*', unit_position, 0)
-		if AI:Distance(unit_position, waypoint1:GetAbsOrigin()) + path1_bonus_score < best['Score'] then
-			best = {Portal = false, Score = AI:Distance(unit_position, waypoint1:GetAbsOrigin()) + path1_bonus_score, Path = 1, Order = tonumber(string.sub(waypoint1:GetName(), -1, -1))}
+		-- check to see if nearest path 1 waypoint is better
+		local e_waypoint1 = Entities:FindByNameNearest('p_enemy1_path*', unit_position, 0)
+		local waypoint1 = {Portal = false, Score = AI:Distance(unit_position, e_waypoint1:GetAbsOrigin()) + path1_bonus_score, Path = 1, Order = tonumber(string.sub(e_waypoint1:GetName(), -1, -1))}
+		if waypoint1['Score'] < best['Score'] then
+			best = waypoint1
 		end
-		if AI:Distance(unit_position, waypoint2:GetAbsOrigin()) + path2_bonus_score < best['Score'] then
-			best = {Portal = false, Score = AI:Distance(unit_position, waypoint2:GetAbsOrigin()) + path2_bonus_score, Path = 2, Order = tonumber(string.sub(waypoint2:GetName(), -1, -1))}
+		-- check to see if nearest path 2 waypoint is better
+		local e_waypoint2 = Entities:FindByNameNearest('p_enemy2_path*', unit_position, 0)
+		local waypoint2 = {Portal = false, Score = AI:Distance(unit_position, e_waypoint2:GetAbsOrigin()) + path2_bonus_score, Path = 2, Order = tonumber(string.sub(e_waypoint2:GetName(), -1, -1))}
+		if waypoint2['Score'] < best['Score'] then
+			best = waypoint2
 		end
+		-- stop any unit actions
 		unit:Stop()
+		-- five move orders
 		if not best['Portal'] then
 			-- join trough waypoints
 			for i = best['Order'], 8 do
