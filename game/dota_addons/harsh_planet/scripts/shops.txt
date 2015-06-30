@@ -1,0 +1,17 @@
+"dota_shops"
+{
+  "consumables"
+  {
+      "item"    "item_enchanted_bananas"
+      "item"    "item_enchanted_grapes"
+  }
+  "attributes"
+  {
+  }
+  "weapons_armor"
+  {
+  }
+  "misc"
+  {
+  } 
+}

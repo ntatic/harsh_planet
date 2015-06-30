@@ -1,0 +1,94 @@
+    //====================================================================
+    //  
+    //====================================================================
+    "enemy_"
+    {                                       
+        // General
+        //----------------------------------------------------------------
+        "Model"                     "models/creeps/neutral_creeps/n_creep_troll_skeleton/n_creep_skeleton_melee.vmdl"
+        "BaseClass"                 "npc_dota_creature"
+        "SoundSet"                  "n_creep_Melee"
+        "Level"                     "1"
+        "ModelScale"                "1"
+        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+        "PathfindingSearchDepthScale" "0.1"
+
+        // Abilities
+        //----------------------------------------------------------------
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+
+        // Armor
+        //----------------------------------------------------------------
+        "ArmorPhysical"             "0"
+        "MagicalResistance"         "0"
+
+        // Attack
+        //----------------------------------------------------------------
+        "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin"           "11"
+        "AttackDamageMax"           "23"
+        "AttackRate"                "1.5"
+        "AttackAnimationPoint"      "0.80"
+        "AttackAcquisitionRange"    "800"
+        "AttackRange"               "128"
+        "ProjectileModel"           "" 
+        "ProjectileSpeed"           ""
+
+        // Bounds
+        //----------------------------------------------------------------
+        "RingRadius"                "70"
+        "HealthBarOffset"           "160"
+        "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
+
+        // Bounty
+        //----------------------------------------------------------------
+        "BountyXP"                  "8"
+        "BountyGoldMin"             "6"
+        "BountyGoldMax"             "8"
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"             "300"
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"              "200"
+        "StatusHealthRegen"         "2"
+        "StatusMana"                "0"
+        "StatusManaRegen"           "0"
+        
+        // Vision
+        //----------------------------------------------------------------
+        "VisionDaytimeRange"        "1200"
+        "VisionNighttimeRange"      "800"
+
+        // Team
+        //----------------------------------------------------------------
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+        // Creature Data
+        //----------------------------------------------------------------
+        "Creature"
+        {
+            "CanRespawn"                "0"
+            "DisableClumpingBehavior"   "1"
+            "AttachWearables"
+            {
+                
+                "Wearable1" { "ItemDef" "232" }
+                "Wearable2" { "ItemDef" "233" }
+                "Wearable3" { "ItemDef" "234" }
+                "Wearable4" { "ItemDef" "235" }
+                "Wearable5" { "ItemDef" "236" }
+                "Wearable6" { "ItemDef" "237" }
+                "Wearable7" { "ItemDef" "238" }
+            }
+        }
+    }   

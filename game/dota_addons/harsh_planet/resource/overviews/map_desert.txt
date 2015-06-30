@@ -1,0 +1,8 @@
+map_desert
+{
+	material materials/overviews/map_desert.vmat
+	pos_x -7424
+	pos_y 6848
+	scale 13.750
+}
+
