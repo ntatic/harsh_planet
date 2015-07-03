@@ -9,5 +9,6 @@ function OnEnemyReachedPortal(trigger)
 		end)
 		FindClearSpaceForUnit(unit, GameRules.waypoints['Special']['EnemyKillPit']['Position'], false)
 		unit:ForceKill(false)
+		GameRules.Lives = GameRules.Lives - 1
 	end
 end

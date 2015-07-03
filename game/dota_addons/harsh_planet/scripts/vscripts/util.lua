@@ -35,6 +35,9 @@ function Util:SetupGameRules(game_mode)
 	-- events
 	ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(game_mode, 'OnGameRulesStateChange'), game_mode)
 	ListenToGameEvent('entity_killed', Dynamic_Wrap(game_mode, 'OnEntityKilled'), game_mode)
+	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(game_mode, 'OnPlayerKilled'), game_mode)
+	ListenToGameEvent('player_spawn', Dynamic_Wrap(game_mode, 'OnPlayerSpawn'), game_mode)
+	ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(game_mode, 'OnPlayerPickHero'), game_mode)
 end
 
 -- explode string
@@ -63,4 +66,38 @@ function Util:ExplodeAsInt(delimeter, input_string)
 		result[i] = val
 	end
 	return result
+end
+
+function Util:print_r ( t )  
+    local print_r_cache={}
+    local function sub_print_r(t,indent)
+        if (print_r_cache[tostring(t)]) then
+            print(indent.."*"..tostring(t))
+        else
+            print_r_cache[tostring(t)]=true
+            if (type(t)=="table") then
+                for pos,val in pairs(t) do
+                    if (type(val)=="table") then
+                        print(indent.."["..pos.."] => "..tostring(t).." {")
+                        sub_print_r(val,indent..string.rep(" ",string.len(pos)+8))
+                        print(indent..string.rep(" ",string.len(pos)+6).."}")
+                    elseif (type(val)=="string") then
+                        print(indent.."["..pos..'] => "'..val..'"')
+                    else
+                        print(indent.."["..pos.."] => "..tostring(val))
+                    end
+                end
+            else
+                print(indent..tostring(t))
+            end
+        end
+    end
+    if (type(t)=="table") then
+        print(tostring(t).." {")
+        sub_print_r(t,"  ")
+        print("}")
+    else
+        sub_print_r(t,"  ")
+    end
+    print()
 end

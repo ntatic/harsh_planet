@@ -1,0 +1,5 @@
+"addon"
+{
+	"HUD_LIVES_LEFT" "{d:lives} live(s) left."
+	"HUD_COUNTDOWN_MESSAGE" "Until next wave. Prepare as best you can."
+}

@@ -34,12 +34,19 @@ function GameMode:InitGameMode()
     end
     -- ensure particle portal teleport play
     AddFOWViewer(DOTA_TEAM_GOODGUYS, GameRules.waypoints['Special']['EnemyKillPit']['Position'], 200, 60 * 60 * 60, false)
-    -- Setup round tracker
+    -- setup general
+    GameRules.Lives = MAX_LIVES
+    -- setup round tracker
     GameRules.rounds = {}
     GameRules.rounds['CurrentRound'] = 0
     GameRules.rounds['RoundCount'] = 2
-    GameRules.rounds['EnemyAlive'] = 0
+    GameRules.rounds['EnemyKilled'] = 0
+    GameRules.rounds['TotalEnemies'] = 0
     GameRules.rounds['SpawnInProgress'] = false
+    -- setup hud
+    GameRules.hud = {}
+    GameRules.hud['CountdownEnabled'] = true
+    GameRules.hud['CountdownValue'] = 0
     -- setup rounds
     -- round 1
     GameRules.rounds['Round1_Title'] = 'Skeletons invasion'
@@ -53,6 +60,10 @@ function GameMode:InitGameMode()
     GameRules.rounds['Round2_Unit'] = 'enemy_fire_golem'
     GameRules.rounds['Round2_CountPerSide'] = '10'
     GameRules.rounds['Round2_TinkerFunc'] = 'Basic'
+    Timers:CreateTimer(function()
+        HUD:HudUpdate()
+        return 0.5
+    end)
 end
 
 -- handle game state changes
@@ -64,27 +75,48 @@ end
 
 -- game reached 00:00 time
 function GameMode:OnGameInProgress()
-    GameMode:StartNextRound()
+    GameMode:EndRound()
 end
 
 -- called everytime time unit is killed
 function GameMode:OnEntityKilled(keys)
     local killedUnit = EntIndexToHScript(keys.entindex_killed)
-    if killedUnit:GetTeamNumber() == DOTA_TEAM_BADGUYS then GameRules.rounds['EnemyAlive'] = GameRules.rounds['EnemyAlive'] - 1 end
-    if GameRules.rounds['EnemyAlive'] == 0 and GameRules.rounds['SpawnInProgress'] == false then GameMode:EndRound() end
+    if killedUnit:GetTeamNumber() == DOTA_TEAM_BADGUYS and killedUnit.spawned_enemy then
+        GameRules.rounds['EnemyKilled'] = GameRules.rounds['EnemyKilled'] + 1
+    end
+    if GameRules.rounds['EnemyKilled'] == GameRules.rounds['TotalEnemies'] then
+        GameMode:EndRound()
+    end
+end
+
+function GameMode:OnPlayerKilled(keys)
+    --GameMode:HudUpdate();
+end
+
+function GameMode:OnPlayerSpawn(keys)
+   --GameMode:HudUpdate(); 
+end
+
+function GameMode:OnPlayerPickHero(keys)
+    --GameMode:HudUpdate();
 end
 
 -- starts next round
 function GameMode:StartNextRound()
     GameRules.rounds['CurrentRound'] = GameRules.rounds['CurrentRound'] + 1
+    GameRules.rounds['TotalEnemies'] = 0
+    GameRules.rounds['EnemyKilled'] = 0
     local p_round = 'Round' .. GameRules.rounds['CurrentRound'] .. '_'
     local countdown = ROUND_COUNTDOWN
     Timers:CreateTimer(function()
         if countdown > 0 then
-            HUD:Notify('<font color="#FB535B">Round ' .. GameRules.rounds['CurrentRound'] .. ':</font> starting in <font color="#FB535B">' .. countdown .. '</font>...')
+            GameRules.hud['CountdownEnabled'] = true
+            GameRules.hud['CountdownValue'] = countdown
             countdown = countdown - 1
             return 1.0
         else
+            GameRules.hud['CountdownEnabled'] = false
+            GameRules.hud['CountdownValue'] = 0
             if GameRules.rounds[p_round .. 'Type'] == ROUND_TYPE_NORMAL then
                 GameMode:SpawnNormalRound(p_round)
             elseif GameRules.rounds[p_round .. 'Type'] == ROUND_TYPE_BOSS then
@@ -97,24 +129,22 @@ end
 -- round is over
 function GameMode:EndRound()
     if GameRules.rounds['CurrentRound'] == GameRules.rounds['RoundCount'] then
-        HUD:Notify('<font color="#FB535B">You won!</font>')
+        HUD:Notify('You WON!!!', 60)
     else
-        HUD:Notify('<font color="#FB535B">Round completed!</font>')
-        HUD:Notify('Prepare yourself for next round.')
-        Timers:CreateTimer(ROUND_BREAK_DURATION, function()
-            GameMode:StartNextRound()
-        end)
+        GameMode:StartNextRound()
     end
 end
 
 -- spawn normal round
 function GameMode:SpawnNormalRound(p_round)
-    HUD:Notify('<font color="#FB535B">Round ' .. GameRules.rounds['CurrentRound'] .. ':</font> <font color="#7293C8">' .. GameRules.rounds[p_round .. 'Title'] .. '</font>')
-    GameRules.rounds['SpawnInProgress'] = true
+    HUD:Notify('Round ' .. GameRules.rounds['CurrentRound'] .. ': ' .. GameRules.rounds[p_round .. 'Title'])
     local unit_names = Util:ExplodeAsString(' ', GameRules.rounds[p_round .. 'Unit'])
     local unit_counts = Util:ExplodeAsInt(' ', GameRules.rounds[p_round .. 'CountPerSide'])
     local unit_tfuncs = Util:ExplodeAsString(' ', GameRules.rounds[p_round .. 'TinkerFunc'])
     local spawn_delay = 0
+    -- calculate total enymies in this round
+    GameRules.rounds['TotalEnemies'] = 0;
+    for i = 1, table.getn(unit_counts) do GameRules.rounds['TotalEnemies'] = GameRules.rounds['TotalEnemies'] + unit_counts[i] * 2 end
     for i = 1, table.getn(unit_names) do
         local unit_name = unit_names[i]
         local unit_count = unit_counts[i]
@@ -124,12 +154,12 @@ function GameMode:SpawnNormalRound(p_round)
             Timers:CreateTimer(spawn_delay, function()
                 local unit1 = CreateUnitByName(unit_name, GameRules.waypoints['Special']['SpawnForPath1']['Position'], true, nil, nil, DOTA_TEAM_BADGUYS)
                 local unit2 = CreateUnitByName(unit_name, GameRules.waypoints['Special']['SpawnForPath2']['Position'], true, nil, nil, DOTA_TEAM_BADGUYS)
+                unit1.spawned_enemy = true
+                unit2.spawned_enemy = true
                 AI:SetParams(unit1, {PreferedPath = 1, State = AI_STATE_IDLE})
                 AI:SetParams(unit2, {PreferedPath = 2, State = AI_STATE_IDLE})
                 AI:SetContextThinkSmart(unit1, unit_tfunc)
                 AI:SetContextThinkSmart(unit2, unit_tfunc)
-                GameRules.rounds['EnemyAlive'] = GameRules.rounds['EnemyAlive'] + 2
-                if j == unit_count and i == table.getn(unit_names) then GameRules.rounds['SpawnInProgress'] = false end
             end)
         end
     end

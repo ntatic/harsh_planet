@@ -1,0 +1,11 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
+	</styles>
+	<Panel>
+		<Image id="Background" src="file://{images}/custom_game/loading_screen/bg.png" />
+		<Panel id="TitlePanel">
+			<Label text="#addon_game_name" />
+		</Panel>
+	</Panel>
+</root>

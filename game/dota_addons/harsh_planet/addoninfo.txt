@@ -1,3 +1,10 @@
 "AddonInfo"
 {
+	"TeamCount" "1"
+	"maps" "map_desert"
+	"IsPlayable" "1"
+	"map_desert"
+	{
+		"MaxPlayers" "4"
+	}
 }
