@@ -38,6 +38,7 @@ function Util:SetupGameRules(game_mode)
 	ListenToGameEvent('dota_player_killed', Dynamic_Wrap(game_mode, 'OnPlayerKilled'), game_mode)
 	ListenToGameEvent('player_spawn', Dynamic_Wrap(game_mode, 'OnPlayerSpawn'), game_mode)
 	ListenToGameEvent('dota_player_pick_hero', Dynamic_Wrap(game_mode, 'OnPlayerPickHero'), game_mode)
+	ListenToGameEvent('npc_spawned', Dynamic_Wrap(game_mode, 'OnNPCSpawned'), game_mode)
 end
 
 -- explode string

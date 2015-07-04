@@ -51,14 +51,14 @@ function GameMode:InitGameMode()
     -- round 1
     GameRules.rounds['Round1_Title'] = 'Skeletons invasion'
     GameRules.rounds['Round1_Type'] = ROUND_TYPE_NORMAL
-    GameRules.rounds['Round1_Unit'] = 'enemy_bat enemy_spectre enemy_fire_golem'
-    GameRules.rounds['Round1_CountPerSide'] = '4 8 4'
-    GameRules.rounds['Round1_TinkerFunc'] = 'Basic Basic Basic'
+    GameRules.rounds['Round1_Unit'] = 'enemy_skeleton enemy_wolf'
+    GameRules.rounds['Round1_CountPerSide'] = '6 1'
+    GameRules.rounds['Round1_TinkerFunc'] = 'Basic Basic Basic Basic Basic'
     -- round 2
     GameRules.rounds['Round2_Title'] = 'Winter is comming'
     GameRules.rounds['Round2_Type'] = ROUND_TYPE_NORMAL
-    GameRules.rounds['Round2_Unit'] = 'enemy_fire_golem'
-    GameRules.rounds['Round2_CountPerSide'] = '10'
+    GameRules.rounds['Round2_Unit'] = 'enemy_boss_snowlord'
+    GameRules.rounds['Round2_CountPerSide'] = '1'
     GameRules.rounds['Round2_TinkerFunc'] = 'Basic'
     Timers:CreateTimer(function()
         HUD:HudUpdate()
@@ -99,6 +99,15 @@ end
 
 function GameMode:OnPlayerPickHero(keys)
     --GameMode:HudUpdate();
+end
+
+function GameMode:OnNPCSpawned(keys)
+    local npc = EntIndexToHScript(keys.entindex)
+    local unit_name = npc:GetUnitName()
+    if FX_AMBIENT[unit_name] then
+        npc.fx = {}
+        npc.fx.ambient = ParticleManager:CreateParticle(FX_AMBIENT[unit_name], PATTACH_ABSORIGIN_FOLLOW, npc)
+    end
 end
 
 -- starts next round

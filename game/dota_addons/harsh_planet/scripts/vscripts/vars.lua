@@ -45,6 +45,10 @@ LIGHTS_RADIUS = 900
 -- particles
 FX_ENEMY_REACHED_PORTAL = 'particles/econ/events/ti4/teleport_end_streak_ti4.vpcf'
 
+-- ambient particles
+FX_AMBIENT = {}
+FX_AMBIENT['enemy_spectre'] = 'particles/units/heroes/hero_spectre/spectre_ambient.vpcf'
+
 -- sounds
 SND_CLOCK_TICK = 'sounds/ui/deny_cooldown.vsnd'
 SND_ROUND_START_NORMAL = 'sounds/music/stingers/greevil_stingers/greevil_camp_respawn.vsnd'

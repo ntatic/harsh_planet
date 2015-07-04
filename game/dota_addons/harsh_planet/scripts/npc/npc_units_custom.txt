@@ -13,7 +13,7 @@
         "BaseClass"                 "npc_dota_creature"
         "SoundSet"                  "n_creep_Melee"
         "Level"                     "1"
-        "ModelScale"                "1"
+        "ModelScale"                "1.4"
         "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
         "PathfindingSearchDepthScale" "0.1"
 
@@ -56,7 +56,7 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "300"
+        "MovementSpeed"             "260"
 
         // Status
         //----------------------------------------------------------------
@@ -102,7 +102,7 @@
 
         // Abilities
         //----------------------------------------------------------------
-        "Ability1"                  ""
+        "Ability1"                  "common_crit_aura"
         "Ability2"                  ""
         "Ability3"                  ""
         "Ability4"                  ""
@@ -139,7 +139,7 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "300"
+        "MovementSpeed"             "260"
 
         // Status
         //----------------------------------------------------------------
@@ -171,7 +171,7 @@
     //====================================================================
     // Fire golem
     //====================================================================
-    "enemy_fire_golem"
+    "enemy_obsidian_golem"
     {                                       
         // General
         //----------------------------------------------------------------
@@ -222,7 +222,7 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "300"
+        "MovementSpeed"             "260"
 
         // Status
         //----------------------------------------------------------------
@@ -254,20 +254,20 @@
     //====================================================================
     //  Gargoyle Stalker
     //====================================================================
-    "enemy_bat"
+    "enemy_obsidian_guard"
     {                                       
         // General
         //----------------------------------------------------------------
-        "Model"                     "models/items/courier/grim_wolf_radiant/grim_wolf_radiant_flying.vmdl"
+        "Model"                     "models/heroes/obsidian_destroyer/obsidian_destroyer.vmdl"
         "BaseClass"                 "npc_dota_creature"
         "SoundSet"                  "n_creep_Ranged"
         "Level"                     "1"
-        "ModelScale"                "1"
+        "ModelScale"                "0.8"
         "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
         "PathfindingSearchDepthScale" "0.1"
         "precache"
         {
-            "particle_folder"       "particles/units/heroes/hero_visage/"
+            "particle_folder"       "particles/units/heroes/hero_obsidian_destroyer/"
         }
 
         // Abilities
@@ -279,19 +279,19 @@
 
         // Armor
         //----------------------------------------------------------------
-        "ArmorPhysical"             "6"
-        "MagicalResistance"         "0"
+        "ArmorPhysical"             "0"
+        "MagicalResistance"         "50"
 
         // Attack
         //----------------------------------------------------------------
         "AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"
-        "AttackDamageMin"           "8"
-        "AttackDamageMax"           "11"
-        "AttackRate"                "1"
-        "AttackAnimationPoint"      "0.33"
+        "AttackDamageMin"           "22"
+        "AttackDamageMax"           "24"
+        "AttackRate"                "1.8"
+        "AttackAnimationPoint"      "0.46"
         "AttackAcquisitionRange"    "800"
-        "AttackRange"               "600"
-        "ProjectileModel"           "particles/units/heroes/hero_visage/visage_base_attack.vpcf" 
+        "AttackRange"               "400"
+        "ProjectileModel"           "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_base_attack.vpcf" 
         "ProjectileSpeed"           "1400"
 
         // Bounds
@@ -309,14 +309,14 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "300"
+        "MovementSpeed"             "260"
 
         // Status
         //----------------------------------------------------------------
-        "StatusHealth"              "300"
+        "StatusHealth"              "600"
         "StatusHealthRegen"         "2"
-        "StatusMana"                "0"
-        "StatusManaRegen"           "0"
+        "StatusMana"                "200"
+        "StatusManaRegen"           "2"
         
         // Vision
         //----------------------------------------------------------------
@@ -336,6 +336,14 @@
         {
             "CanRespawn"                "0"
             "DisableClumpingBehavior"   "1"
+            "AttachWearables"
+            {
+                
+                "Wearable1" { "ItemDef" "7069" }
+                "Wearable2" { "ItemDef" "7070" }
+                "Wearable3" { "ItemDef" "7071" }
+                "Wearable4" { "ItemDef" "7072" }
+            }
         }
     }   
     //====================================================================
@@ -349,13 +357,9 @@
         "BaseClass"                 "npc_dota_creature"
         "SoundSet"                  "n_creep_Melee"
         "Level"                     "1"
-        "ModelScale"                "1"
+        "ModelScale"                "0.7"
         "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
         "PathfindingSearchDepthScale" "0.1"
-        "precache"
-        {
-            "particle_folder"       "particles/units/heroes/hero_spectre/"
-        }
         // Abilities
         //----------------------------------------------------------------
         "Ability1"                  ""
@@ -395,7 +399,7 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "300"
+        "MovementSpeed"             "260"
 
         // Status
         //----------------------------------------------------------------
@@ -430,6 +434,104 @@
                 "Wearable3" { "ItemDef" "4899" }
                 "Wearable4" { "ItemDef" "4901" }
                 "Wearable5" { "ItemDef" "4900" }
+            }
+        }
+    }
+    //====================================================================
+    // Boss Snowlord
+    //====================================================================
+    "enemy_boss_snowlord"
+    {                                       
+        // General
+        //----------------------------------------------------------------
+        "Model"                     "models/heroes/tuskarr/tuskarr.vmdl"
+        "BaseClass"                 "npc_dota_creature"
+        "SoundSet"                  "n_creep_Melee"
+        "Level"                     "1"
+        "ModelScale"                "2.5"
+        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+        "PathfindingSearchDepthScale" "0.1"
+        "precache"
+        {
+            "particle_folder"       "particles/units/heroes/hero_tusk/"
+        }
+        // Abilities
+        //----------------------------------------------------------------
+        "Ability1"                  ""
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  "snowlord_mighty_fist"
+        "Ability5"                  ""
+        "Ability6"                  ""
+
+        // Armor
+        //----------------------------------------------------------------
+        "ArmorPhysical"             "15"
+        "MagicalResistance"         "33"
+
+        // Attack
+        //----------------------------------------------------------------
+        "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin"           "190"
+        "AttackDamageMax"           "210"
+        "AttackRate"                "1.3"
+        "AttackAnimationPoint"      "0.36"
+        "AttackAcquisitionRange"    "2000"
+        "AttackRange"               "300"
+        "ProjectileModel"           "" 
+        "ProjectileSpeed"           ""
+
+        // Bounds
+        //----------------------------------------------------------------
+        "RingRadius"                "180"
+        "HealthBarOffset"           "400"
+        "BoundsHullName"            "DOTA_HULL_SIZE_HUGE"
+
+        // Bounty
+        //----------------------------------------------------------------
+        "BountyXP"                  "1000"
+        "BountyGoldMin"             "300"
+        "BountyGoldMax"             "300"
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"             "310"
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"              "8000"
+        "StatusHealthRegen"         "10"
+        "StatusMana"                "2000"
+        "StatusManaRegen"           "10"
+        
+        // Vision
+        //----------------------------------------------------------------
+        "VisionDaytimeRange"        "2000"
+        "VisionNighttimeRange"      "2000"
+
+        // Team
+        //----------------------------------------------------------------
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+        // Creature Data
+        //----------------------------------------------------------------
+        "Creature"
+        {
+            "CanRespawn"                "0"
+            "DisableClumpingBehavior"   "1"
+            "AttachWearables"
+            {
+                
+                "Wearable1" { "ItemDef" "5009" }
+                "Wearable2" { "ItemDef" "5010" }
+                "Wearable3" { "ItemDef" "5011" }
+                "Wearable4" { "ItemDef" "5012" }
+                "Wearable5" { "ItemDef" "5013" }
+                "Wearable6" { "ItemDef" "5014" }
             }
         }
     }   

@@ -1,5 +1,51 @@
 // Dota Abilities Override File
 "DOTAAbilities"
 {
-  "Version"   "1"
+	"Version"   "1"
+	"common_crit_aura"	
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/common/crit_aura.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"alpha_wolf_critical_strike"
+		"MaxLevel"						"3"
+		"LevelsBetweenUpgrades"			"2"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"chance"				"20 30 40"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"multiplier"			"225 300 375"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"600 800 1000"
+			}
+		}
+	}
+
+	
+	//====================================================================================
+	// Snowlord: Mighty fist
+	//====================================================================================
+	"snowlord_mighty_fist"
+	{
+		// General
+		//--------------------------------------------------------------------------------
+		"BaseClass"             		"ability_lua"
+		"ScriptFile"					"abilities/snowlord/mighty_fist.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"tusk_walrus_punch"
+		"MaxLevel" 						"1"
+		"precache"
+		{
+			"particle"					"particles/econ/items/brewmaster/brewmaster_offhand_elixir/brewmaster_thunder_clap_base_elixir.vpcf"
+		}
+	}
 }

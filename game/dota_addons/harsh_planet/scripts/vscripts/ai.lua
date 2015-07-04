@@ -90,3 +90,9 @@ function AI:Basic(unit)
 	end
 	return 0.25
 end
+
+function AI:BossSnowMaster(unit)
+	-- if unit is idle set state to AI_STATE_IDLE
+	if unit:IsIdle() then unit.ai.state = AI.STATE_IDLE end
+	-- just get to portal with shorttest path
+ end
