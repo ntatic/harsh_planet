@@ -19,7 +19,7 @@ function modifier_crit_aura_effect:DeclareFunctions()
 end
 
 function modifier_crit_aura_effect:GetModifierPreAttack_CriticalStrike(params)
-	if RandomInt(1, 100) <= self.args.chance then
+	if IsServer() and RandomInt(1, 100) <= self.args.chance then
 		return self.args.multiplier
 	else
 		return false

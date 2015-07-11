@@ -8,26 +8,31 @@
     <Panel class="Hud" hittest="false">
         <Panel id="NotificationsRoot" class="NotificationsPanel" hittest="false"></Panel>
         <Panel class="HudPanel" hittest="true">
-            <Panel id="RoundInfoContainer" class="SideBySide">
-                <Panel class="CircleLabel MarginRightSmall">
-                    <Label id="RoundLevel" class="LabelShadowNormal AlignCenterCenter MonoNumbersFont" text="" />
-                </Panel>
-                <Panel class="OneBelowOther AlignLeftCenter">
-                    <Label id="RoundTitle" text="" class="LabelSizeSmall LabelShadowNormal" />
-                    <Panel class="Progress">
-                        <Panel id="RoundProgress" class="ProgressBar"></Panel>
+            <Panel id="RoundInfoContainer" class="Collapse OneBelowOther MaxWidth">
+                <Panel class="SideBySide">
+                    <Panel class="CircleLabel MarginRightSmall">
+                        <Label id="RoundLevel" class="LabelShadowNormal AlignCenterCenter MonoNumbersFont" text="" />
+                    </Panel>
+                    <Panel class="OneBelowOther AlignLeftCenter">
+                        <Label id="RoundTitle" text="" class="LabelSizeSmall LabelShadowNormal" />
+                        <Panel class="Progress">
+                            <Panel id="RoundProgress" class="ProgressBar"></Panel>
+                        </Panel>
                     </Panel>
                 </Panel>
+                <Panel class="Divider"></Panel>
             </Panel>
-            <Panel id="CountdownContainer" class="SideBySide">
-                <Panel class="CircleLabel MarginRightSmall">
-                    <Label id="CountdownValue" class="LabelShadowNormal AlignCenterCenter MonoNumbersFont" text="" />
+            <Panel id="CountdownContainer" class="Collapse OneBelowOther MaxWidth">
+                <Panel class="SideBySide">
+                    <Panel class="CircleLabel MarginRightSmall">
+                        <Label id="CountdownValue" class="LabelShadowNormal AlignCenterCenter MonoNumbersFont" text="" />
+                    </Panel>
+                    <Panel class="AlignLeftCenter">
+                        <Label text="#HUD_COUNTDOWN_MESSAGE" class="LabelShadowNormal LabelSizeSmall" />
+                    </Panel>
                 </Panel>
-                <Panel class="AlignLeftCenter">
-                    <Label text="#HUD_COUNTDOWN_MESSAGE" class="LabelShadowNormal LabelSizeSmall" />
-                </Panel>
+                <Panel class="Divider"></Panel>
             </Panel>
-            <Panel class="Divider"></Panel>
             <Panel class="HeroList">
                 <DOTAHeroImage id="Hero0" class="HeroImage" heroname="npc_dota_hero_none" />
                 <DOTAHeroImage id="Hero1" class="HeroImage" heroname="npc_dota_hero_none" />

@@ -51,8 +51,8 @@ function GameMode:InitGameMode()
     -- round 1
     GameRules.rounds['Round1_Title'] = 'Skeletons invasion'
     GameRules.rounds['Round1_Type'] = ROUND_TYPE_NORMAL
-    GameRules.rounds['Round1_Unit'] = 'enemy_skeleton enemy_wolf'
-    GameRules.rounds['Round1_CountPerSide'] = '6 1'
+    GameRules.rounds['Round1_Unit'] = 'enemy_skeleton'
+    GameRules.rounds['Round1_CountPerSide'] = '30'
     GameRules.rounds['Round1_TinkerFunc'] = 'Basic Basic Basic Basic Basic'
     -- round 2
     GameRules.rounds['Round2_Title'] = 'Winter is comming'
@@ -64,6 +64,8 @@ function GameMode:InitGameMode()
         HUD:HudUpdate()
         return 0.5
     end)
+    -- for development purposes
+     Convars:RegisterCommand('test', Dynamic_Wrap(GameMode, 'TestConsoleCommand'), '', FCVAR_CHEAT)
 end
 
 -- handle game state changes
@@ -147,13 +149,17 @@ end
 -- spawn normal round
 function GameMode:SpawnNormalRound(p_round)
     HUD:Notify('Round ' .. GameRules.rounds['CurrentRound'] .. ': ' .. GameRules.rounds[p_round .. 'Title'])
+    EmitGlobalSound(SND_ROUND_START_NORMAL)
     local unit_names = Util:ExplodeAsString(' ', GameRules.rounds[p_round .. 'Unit'])
     local unit_counts = Util:ExplodeAsInt(' ', GameRules.rounds[p_round .. 'CountPerSide'])
     local unit_tfuncs = Util:ExplodeAsString(' ', GameRules.rounds[p_round .. 'TinkerFunc'])
     local spawn_delay = 0
+    local unit1_fw = GameRules.waypoints['Path1'][1]['Position'] - GameRules.waypoints['Special']['SpawnForPath1']['Position']
+    local unit2_fw = GameRules.waypoints['Path2'][1]['Position'] - GameRules.waypoints['Special']['SpawnForPath2']['Position']
     -- calculate total enymies in this round
     GameRules.rounds['TotalEnemies'] = 0;
     for i = 1, table.getn(unit_counts) do GameRules.rounds['TotalEnemies'] = GameRules.rounds['TotalEnemies'] + unit_counts[i] * 2 end
+    -- spawn enemies
     for i = 1, table.getn(unit_names) do
         local unit_name = unit_names[i]
         local unit_count = unit_counts[i]
@@ -161,10 +167,25 @@ function GameMode:SpawnNormalRound(p_round)
         for j = 1, unit_count do
             spawn_delay = spawn_delay + 0.8
             Timers:CreateTimer(spawn_delay, function()
+                -- create units
                 local unit1 = CreateUnitByName(unit_name, GameRules.waypoints['Special']['SpawnForPath1']['Position'], true, nil, nil, DOTA_TEAM_BADGUYS)
                 local unit2 = CreateUnitByName(unit_name, GameRules.waypoints['Special']['SpawnForPath2']['Position'], true, nil, nil, DOTA_TEAM_BADGUYS)
+                -- set facing direction
+                unit1:SetForwardVector(unit1_fw)
+                unit2:SetForwardVector(unit2_fw)
+                -- setup spawn animation
+                local fx1 = ParticleManager:CreateParticle(FX_ENEMY_SPAWN, PATTACH_ABSORIGIN, unit1)
+                local fx2 = ParticleManager:CreateParticle(FX_ENEMY_SPAWN, PATTACH_ABSORIGIN, unit2)
+                Timers:CreateTimer(3, function()
+                    ParticleManager:DestroyParticle(fx1, false)
+                    ParticleManager:ReleaseParticleIndex(fx1)
+                    ParticleManager:DestroyParticle(fx2, false)
+                    ParticleManager:ReleaseParticleIndex(fx2)
+                end)
+                -- setup additional args
                 unit1.spawned_enemy = true
                 unit2.spawned_enemy = true
+                -- setup ai
                 AI:SetParams(unit1, {PreferedPath = 1, State = AI_STATE_IDLE})
                 AI:SetParams(unit2, {PreferedPath = 2, State = AI_STATE_IDLE})
                 AI:SetContextThinkSmart(unit1, unit_tfunc)
@@ -176,4 +197,13 @@ end
 
 -- spawn boss round
 function GameMode:SpawnBossRound(p_round)
+end
+
+function GameMode:TestConsoleCommand()
+    print('Test command')
+    local hero = PlayerResource:GetPlayer(0):GetAssignedHero()
+    local fx = ParticleManager:CreateParticle('particles/econ/items/crystal_maiden/crystal_maiden_maiden_of_icewrack/maiden_freezing_field_frostgrow_arcana1.vpcf', PATTACH_ABSORIGIN_FOLLOW, hero)
+    ParticleManager:SetParticleControl(fx, 1, Vector(2000, 1, 2000))
+    
+    --ParticleManager:SetParticleControlEnt()
 end

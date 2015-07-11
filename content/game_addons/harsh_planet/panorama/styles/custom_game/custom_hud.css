@@ -23,7 +23,7 @@
 }
 
 .HudPanel {
-	background-color: #000000AA;
+	background-color: #000000CC;
 	padding: 10px;
 	border: 3px solid #fff;
 	border-radius: 6px;
@@ -105,6 +105,10 @@
 
 .SideBySide {
 	flow-children: right;
+}
+
+.MaxWidth {
+	width: 100%;
 }
 
 .LabelShadowNormal {

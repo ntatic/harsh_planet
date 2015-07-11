@@ -2,6 +2,37 @@
 "DOTAAbilities"
 {
 	"Version"   "1"
+    //====================================================================================
+    // Ability: Dummy
+    //====================================================================================
+    "dota_ability_dummy"
+    {
+        "BaseClass"                         "ability_datadriven"
+        "AbilityName"                       "dota_ability_dummy"
+        "AbilityBehavior"                   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "Modifiers"
+        {
+            "modifier_dota_ability_dummy"
+            {
+                "IsHidden"              "1"
+                "Passive"               "1"
+                "States"
+                {
+                    "MODIFIER_STATE_INVULNERABLE"     	"MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_UNSELECTABLE"       "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NO_HEALTH_BAR"      "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NOT_ON_MINIMAP"     "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_NO_UNIT_COLLISION"  "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_ATTACK_IMMUNE"      "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_MAGIC_IMMUNE"       "MODIFIER_STATE_VALUE_ENABLED"
+                    "MODIFIER_STATE_OUT_OF_GAME"        "MODIFIER_STATE_VALUE_ENABLED"
+                }
+            }
+        }
+    }
+	//====================================================================================
+	// Common: Critical Strike Aura
+	//====================================================================================
 	"common_crit_aura"	
 	{
 		"BaseClass"						"ability_lua"
@@ -29,10 +60,18 @@
 			}
 		}
 	}
-
-	
 	//====================================================================================
-	// Snowlord: Mighty fist
+	// Common: Spell Shield
+	//====================================================================================
+	//"common_spell_shield"
+	//{
+	//	"BaseClass"						"ability_lua"
+	//	"ScriptFile"					"abilities/common/spell_shield.lua"
+	//	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+	//	"AbilityTextureName"			"antimage_spell_shield"
+	//}
+	//====================================================================================
+	// Snowlord: Mighty Fist
 	//====================================================================================
 	"snowlord_mighty_fist"
 	{
@@ -46,6 +85,25 @@
 		"precache"
 		{
 			"particle"					"particles/econ/items/brewmaster/brewmaster_offhand_elixir/brewmaster_thunder_clap_base_elixir.vpcf"
+		}
+	}
+	//====================================================================================
+	// Snowlord: Frozen Ground
+	//====================================================================================
+	"snowlord_frozen_ground"	
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/snowlord/frozen_ground.lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		"AbilityTextureName"			"jakiro_ice_path"
+		"MaxLevel"						"1"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"radius"				"1000"
+			}
 		}
 	}
 }

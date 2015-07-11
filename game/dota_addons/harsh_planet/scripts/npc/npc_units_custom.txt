@@ -2,6 +2,25 @@
 "DOTAUnits"
 {
   "Version" "1"
+    //====================================================================================
+    // Dummy unit
+    //====================================================================================
+    "npc_dummy"
+    {
+        "BaseClass"                 "npc_dota_creature"
+        "Model"                     "models/development/invisiblebox.vmdl"
+        "Ability1"                  "dota_ability_dummy"
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+        "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+        "BountyXP"                  "0"
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+        "MovementSpeed"             "0"
+        "StatusHealth"              "5000"
+        "StatusMana"                "5000"
+        "StatusManaRegen"           "250"
+    }
     //====================================================================
     // Skeleton
     //====================================================================
@@ -461,7 +480,7 @@
         "Ability2"                  ""
         "Ability3"                  ""
         "Ability4"                  "snowlord_mighty_fist"
-        "Ability5"                  ""
+        "Ability5"                  "snowlord_frozen_ground"
         "Ability6"                  ""
 
         // Armor
@@ -496,7 +515,7 @@
         // Movement
         //----------------------------------------------------------------
         "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "310"
+        "MovementSpeed"             "100"
 
         // Status
         //----------------------------------------------------------------

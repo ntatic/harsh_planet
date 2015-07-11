@@ -2,4 +2,7 @@
 {
 	"HUD_LIVES_LEFT" "{d:lives} live(s) left."
 	"HUD_COUNTDOWN_MESSAGE" "Until next wave. Prepare as best you can."
+	// rounds
+	"Round1_Title" "Skeleton invasion"
+	"Round2_Title" "Snowlord, cold motherfucker"
 }

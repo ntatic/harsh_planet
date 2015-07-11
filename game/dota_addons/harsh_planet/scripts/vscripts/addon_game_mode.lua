@@ -1,30 +1,33 @@
 require('libs/timers')
-require('vars')
-require('gamemode')
-require('util')
-require('ai')
-require('hud')
+require('libs/physics')
+require('Util')
+require('Config')
+require('AI')
+require('HUD')
+require('CRound')
+require('CHarshPlanet')
 
 -- precache assets
 function Precache(context)
-    -- particles
-    PrecacheResource('particle', FX_ENEMY_REACHED_PORTAL, context)
-    for _, file in pairs(FX_AMBIENT) do
-        PrecacheResource('particle', file, context)
+	-- precache units
+	local units = LoadKeyValues('scripts/npc/npc_units_custom.txt')
+	for key, _ in pairs(units) do
+		if key ~= 'Version' then PrecacheUnitByNameSync(key, context) end
+	end
+	-- precache particles
+	for _, fx in pairs(PC_FX) do
+		PrecacheResource('particle', fx, context)
+	end
+    for _, fx in pairs(FX_AMBIENT) do
+        PrecacheResource('particle', fx, context)
     end
-    -- units
-    PrecacheUnitByNameSync('enemy_kobold', context)
-    PrecacheUnitByNameSync('enemy_wolf', context)
-    PrecacheUnitByNameSync('enemy_obsidian_golem', context)
-    PrecacheUnitByNameSync('enemy_obsidian_guard', context)
-    PrecacheUnitByNameSync('enemy_spectre', context)
-    PrecacheUnitByNameSync('enemy_boss_snowlord', context)
-    -- sounds
-    PrecacheResource('soundfile', 'soundevents/game_sounds_heroes/game_sounds_keeper_of_the_light.vsndevts', context)
+	-- precache sounds
+	for _, snd in pairs(PC_SND) do
+		PrecacheResource('soundfile', snd, context)
+	end
 end
 
--- Create the game mode when we activate
+-- start game mode
 function Activate()
-    GameRules.GameMode = GameMode()
-    GameRules.GameMode:InitGameMode()
+    GameRules.GameMode = CHarshPlanet()
 end
