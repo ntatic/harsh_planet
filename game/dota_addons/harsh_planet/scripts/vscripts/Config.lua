@@ -2,7 +2,7 @@ GM_START_LIVES              = 50        -- Lives at game start
 GM_LIGHTS_RADIUS            = 900       -- Default radius of static lights
 GM_ROUND_COUNTDOWN          = 10        -- Round countdown in seconds
 GM_ROUND_COUNTDOWN_SOUND    = 5         -- How much last seconds of cooldown tick sound should be played
-GM_DEFAULT_UNIT_SPAWN_DELAY = 0.35      -- How much to wait to spawn next unit
+GM_DEFAULT_UNIT_SPAWN_DELAY = 0.8       -- How much to wait to spawn next unit
 
 CFG_PRE_GAME_TIME           = 0         -- Seconds before game starts (before 00:00)
 CFG_FOG_OF_WAR_DISABLED     = true      -- Disable fog of war
@@ -31,6 +31,5 @@ SND_ENEMY_REACHED_PORTAL    = 'Hero_Furion.Teleport_Disappear'
 -- precache sounds
 PC_SND = {
     'soundevents/game_sounds_greevils.vsndevts',
-    'soundevents/game_sounds_heroes/game_sounds_furion.vsndevts',
     'soundevents/game_sounds_heroes/game_sounds_furion.vsndevts'
 }

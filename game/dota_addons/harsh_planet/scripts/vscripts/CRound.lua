@@ -49,7 +49,10 @@ function CRound:SpawnRound()
     end
     -- spawn units
     local delay = 0
-    for _, uInfo in pairs(self.Rules.Units) do
+    local key = 1
+    while self.Rules.Units[tostring(key)] do
+        local uInfo = self.Rules.Units[tostring(key)]
+        key = key + 1
         for i = 1, tonumber(uInfo.Count) do
             Timers:CreateTimer(delay, function()
                 for i = 1, tonumber(self.Rules.SpawnLocations) do
@@ -92,7 +95,7 @@ function CRound:OnEntityKilled(keys)
         self.KilledEnemies = self.KilledEnemies + 1
         HUD:UpdateRoundInfo(self)
         if self.KilledEnemies == self.TotalEnemies then
-            EmitGlobalSound('SND_ROUND_END')
+            EmitGlobalSound(SND_ROUND_END)
             self.OnRoundEndCallback()
         end
     end

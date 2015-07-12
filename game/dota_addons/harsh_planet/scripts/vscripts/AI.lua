@@ -19,6 +19,7 @@ function AI:Init(unit, params)
     end
     unit.AI = {State = AI.STATE_IDLE}
     local func = AI['_BasicCreature']
+    if unit:GetUnitName() == 'enemy_necromonger' then func = AI['_Necromonger'] end
     unit:SetContextThink(DoUniqueString('ai'), function() return func(AI, unit) end, AI.THINK_INTERVAL)
 end
 
@@ -47,9 +48,19 @@ end
 -- aggro logic
 function AI:_TryToAggro(unit)
     if unit.AI.State ~= AI.STATE_ATTACK then
-        local targets = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, unit:GetAbsOrigin(), nil, unit:GetAcquisitionRange(), DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_ALL, DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE, FIND_CLOSEST, false)
+        -- find potentia targets
+        local targets = FindUnitsInRadius(
+            DOTA_TEAM_NEUTRALS,
+            unit:GetAbsOrigin(),
+            nil,
+            unit:GetAcquisitionRange(),
+            DOTA_UNIT_TARGET_TEAM_ENEMY,
+            DOTA_UNIT_TARGET_ALL,
+            DOTA_UNIT_TARGET_FLAG_FOW_VISIBLE + DOTA_UNIT_TARGET_FLAG_NO_INVIS,
+            FIND_CLOSEST,
+            false)
+        -- find closest unit range that can be attacked
         if table.getn(targets) > 0 then
-            -- find closest unit range that can be attacked
             for i = 1, table.getn(targets) do
                 if targets[i]:IsAlive() and not targets[i]:IsAttackImmune() then
                     -- found unit to atack
@@ -102,4 +113,30 @@ function AI:_BasicCreature(unit)
     AI:_MoveToPortal(unit)
     -- time until next think interval
     return AI.THINK_INTERVAL
+end
+
+-- ai for necromonger
+function AI:_Necromonger(unit)
+    -- cast sacrifice if needed
+    local aSacrifice = unit:GetAbilityByIndex(0)
+    local sacrificeRadius = aSacrifice:GetSpecialValueFor('radius')
+    --local sacrificeHealtTransfer = aSacrifice:GetSpecialValueFor('health_transfer')
+    if unit:GetHealthPercent() < 85 and aSacrifice:IsFullyCastable() then
+        -- calculate requirements
+        local shouldCast = false
+        local targets = FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, sacrificeRadius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, 0, 0, false)
+        if unit:GetHealthPercent() < 30 then
+            shouldCast = true
+        elseif unit:GetHealthPercent() < 50 and #targets >= 3 then
+            shouldCast = true
+        elseif #targets >= 5 then
+            shouldCast = true
+        end
+        -- cast ability if requirements met
+        if shouldCast then
+            unit:CastAbilityNoTarget(aSacrifice, -1)
+        end
+    end
+    -- continue basic ai
+    return AI:_BasicCreature(unit)
 end
