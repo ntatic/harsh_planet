@@ -28,11 +28,6 @@ function CHarshPlanet:GameStarts()
     end
     self.CurrentRound = CRound(self.RoundIndex, self.RoundsKV[sKey], function() self:OnRoundEnds() end)
     self.CurrentRound:Start(GM_ROUND_COUNTDOWN)
-    -- workround, ask BMD why
-    Timers:CreateTimer(function() 
-        HUD:UpdateGameInfo()
-        return 0.25
-    end)
 end
 
 -- called by CRound class when round is over

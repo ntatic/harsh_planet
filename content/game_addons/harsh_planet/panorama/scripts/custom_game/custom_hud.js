@@ -41,7 +41,6 @@ GameEvents.Subscribe('ce_hud_update_roundinfo', function(JSON) {
 
 // update game info
 GameEvents.Subscribe('ce_hud_update_gameinfo', function(JSON) {
-	$.Msg(JSON);
 	UI.LivesLeft.SetDialogVariableInt('lives', JSON.Lives);
 	for (var key in JSON.Players) {
 		UI.Heroes[key].heroname = JSON.Players[key].HeroName;

@@ -13,7 +13,7 @@ function HUD:UpdateGameInfo()
     json.Lives = gm.Lives
     json.Players = {}
     for i = 0, DOTA_MAX_PLAYERS - 1 do
-        if PlayerResource:IsValidPlayer(i) then
+        if PlayerResource:IsValidPlayer(i) and PlayerResource:HasSelectedHero(i) then
             local hero = PlayerResource:GetPlayer(i):GetAssignedHero()
             if hero ~= nil then
                 json.Players[i] = {HeroName = hero:GetUnitName(), Alive = hero:IsAlive()}
