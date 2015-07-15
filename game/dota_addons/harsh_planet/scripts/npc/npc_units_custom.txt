@@ -1,3 +1,4 @@
+
   // Dota Units File
 "DOTAUnits"
 {
@@ -22,7 +23,7 @@
         "StatusManaRegen"           "250"
     }
     //====================================================================
-    // Skeleton
+    // Round 1: Skeleton
     //====================================================================
     "enemy_skeleton"
     {                                       
@@ -83,6 +84,184 @@
         "StatusHealthRegen"         "2"
         "StatusMana"                "0"
         "StatusManaRegen"           "0"
+        
+        // Vision
+        //----------------------------------------------------------------
+        "VisionDaytimeRange"        "1200"
+        "VisionNighttimeRange"      "800"
+
+        // Team
+        //----------------------------------------------------------------
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+        // Creature Data
+        //----------------------------------------------------------------
+        "Creature"
+        {
+            "CanRespawn"                "0"
+            "DisableClumpingBehavior"   "1"
+        }
+    }
+    //====================================================================
+    //  Round 1: Necromonger
+    //====================================================================
+    "enemy_necromonger"
+    {                                       
+        // General
+        //----------------------------------------------------------------
+        "Model"                     "models/heroes/necrolyte/necrolyte.vmdl"
+        "BaseClass"                 "npc_dota_creature"
+        "SoundSet"                  "n_creep_Ranged"
+        "Level"                     "1"
+        "ModelScale"                "1"
+        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+        "PathfindingSearchDepthScale" "0.1"
+        "precache"
+        {
+            "particle_folder"       "particles/units/heroes/hero_necrolyte/"
+        }
+
+        // Abilities
+        //----------------------------------------------------------------
+        "Ability1"                  "necromonger_sacrifice"
+        "Ability2"                  "necromonger_salvation"
+        "Ability3"                  ""
+        "Ability4"                  ""
+
+        // Armor
+        //----------------------------------------------------------------
+        "ArmorPhysical"             "2"
+        "MagicalResistance"         "25"
+
+        // Attack
+        //----------------------------------------------------------------
+        "AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"
+        "AttackDamageMin"           "44"
+        "AttackDamageMax"           "50"
+        "AttackRate"                "1.4"
+        "AttackAnimationPoint"      "0.53"
+        "AttackAcquisitionRange"    "900"
+        "AttackRange"               "700"
+        "ProjectileModel"           "particles/units/heroes/hero_necrolyte/necrolyte_base_attack.vpcf" 
+        "ProjectileSpeed"           "1400"
+
+        // Bounds
+        //----------------------------------------------------------------
+        "RingRadius"                "70"
+        "HealthBarOffset"           "160"
+        "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
+
+        // Bounty
+        //----------------------------------------------------------------
+        "BountyXP"                  "8"
+        "BountyGoldMin"             "6"
+        "BountyGoldMax"             "8"
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"             "260"
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"              "800"
+        "StatusHealthRegen"         "2"
+        "StatusMana"                "400"
+        "StatusManaRegen"           "2"
+        
+        // Vision
+        //----------------------------------------------------------------
+        "VisionDaytimeRange"        "1200"
+        "VisionNighttimeRange"      "800"
+
+        // Team
+        //----------------------------------------------------------------
+        "TeamName"                  "DOTA_TEAM_NEUTRALS"
+        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
+        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
+        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+
+        // Creature Data
+        //----------------------------------------------------------------
+        "Creature"
+        {
+            "CanRespawn"                "0"
+            "DisableClumpingBehavior"   "1"
+            "AttachWearables"
+            {
+                
+                "Wearable1" { "ItemDef" "6291" }
+                "Wearable2" { "ItemDef" "7082" }
+                "Wearable3" { "ItemDef" "7124" }
+                "Wearable4" { "ItemDef" "7132" }
+            }
+        }
+    }
+    //====================================================================
+    // Round 2: Obsidian Golem
+    //====================================================================
+    "enemy_obsidian_golem"
+    {                                       
+        // General
+        //----------------------------------------------------------------
+        "Model"                     "models/items/warlock/golem/obsidian_golem/obsidian_golem.vmdl"
+        "BaseClass"                 "npc_dota_creature"
+        "SoundSet"                  "n_creep_Melee"
+        "Level"                     "1"
+        "ModelScale"                "1"
+        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+        "PathfindingSearchDepthScale" "0.1"
+
+        // Abilities
+        //----------------------------------------------------------------
+        "Ability1"                  "obsidian_golem_immolation"
+        "Ability2"                  ""
+        "Ability3"                  ""
+        "Ability4"                  ""
+
+        // Armor
+        //----------------------------------------------------------------
+        "ArmorPhysical"             "0"
+        "MagicalResistance"         "0"
+
+        // Attack
+        //----------------------------------------------------------------
+        "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackDamageMin"           "11"
+        "AttackDamageMax"           "23"
+        "AttackRate"                "1.5"
+        "AttackAnimationPoint"      "0.80"
+        "AttackAcquisitionRange"    "900"
+        "AttackRange"               "128"
+        "ProjectileModel"           "" 
+        "ProjectileSpeed"           ""
+
+        // Bounds
+        //----------------------------------------------------------------
+        "RingRadius"                "70"
+        "HealthBarOffset"           "160"
+        "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
+
+        // Bounty
+        //----------------------------------------------------------------
+        "BountyXP"                  "8"
+        "BountyGoldMin"             "6"
+        "BountyGoldMax"             "8"
+
+        // Movement
+        //----------------------------------------------------------------
+        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+        "MovementSpeed"             "260"
+
+        // Status
+        //----------------------------------------------------------------
+        "StatusHealth"              "600"
+        "StatusHealthRegen"         "2"
+        "StatusMana"                "100"
+        "StatusManaRegen"           "2"
         
         // Vision
         //----------------------------------------------------------------
@@ -166,184 +345,6 @@
         "StatusHealthRegen"         "2"
         "StatusMana"                "0"
         "StatusManaRegen"           "0"
-        
-        // Vision
-        //----------------------------------------------------------------
-        "VisionDaytimeRange"        "1200"
-        "VisionNighttimeRange"      "800"
-
-        // Team
-        //----------------------------------------------------------------
-        "TeamName"                  "DOTA_TEAM_NEUTRALS"
-        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
-        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
-        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-
-        // Creature Data
-        //----------------------------------------------------------------
-        "Creature"
-        {
-            "CanRespawn"                "0"
-            "DisableClumpingBehavior"   "1"
-        }
-    }
-    //====================================================================
-    //  Necromonger
-    //====================================================================
-    "enemy_necromonger"
-    {                                       
-        // General
-        //----------------------------------------------------------------
-        "Model"                     "models/heroes/necrolyte/necrolyte.vmdl"
-        "BaseClass"                 "npc_dota_creature"
-        "SoundSet"                  "n_creep_Ranged"
-        "Level"                     "1"
-        "ModelScale"                "1"
-        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
-        "PathfindingSearchDepthScale" "0.1"
-        "precache"
-        {
-            "particle_folder"       "particles/units/heroes/hero_necrolyte/"
-        }
-
-        // Abilities
-        //----------------------------------------------------------------
-        "Ability1"                  "necromonger_sacrifice"
-        "Ability2"                  ""
-        "Ability3"                  ""
-        "Ability4"                  ""
-
-        // Armor
-        //----------------------------------------------------------------
-        "ArmorPhysical"             "2"
-        "MagicalResistance"         "25"
-
-        // Attack
-        //----------------------------------------------------------------
-        "AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"
-        "AttackDamageMin"           "44"
-        "AttackDamageMax"           "50"
-        "AttackRate"                "1.4"
-        "AttackAnimationPoint"      "0.53"
-        "AttackAcquisitionRange"    "900"
-        "AttackRange"               "700"
-        "ProjectileModel"           "particles/units/heroes/hero_necrolyte/necrolyte_base_attack.vpcf" 
-        "ProjectileSpeed"           "1400"
-
-        // Bounds
-        //----------------------------------------------------------------
-        "RingRadius"                "70"
-        "HealthBarOffset"           "160"
-        "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
-
-        // Bounty
-        //----------------------------------------------------------------
-        "BountyXP"                  "8"
-        "BountyGoldMin"             "6"
-        "BountyGoldMax"             "8"
-
-        // Movement
-        //----------------------------------------------------------------
-        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "260"
-
-        // Status
-        //----------------------------------------------------------------
-        "StatusHealth"              "800"
-        "StatusHealthRegen"         "2"
-        "StatusMana"                "200"
-        "StatusManaRegen"           "10"
-        
-        // Vision
-        //----------------------------------------------------------------
-        "VisionDaytimeRange"        "1200"
-        "VisionNighttimeRange"      "800"
-
-        // Team
-        //----------------------------------------------------------------
-        "TeamName"                  "DOTA_TEAM_NEUTRALS"
-        "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_HERO"
-        "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_HERO"
-        "UnitRelationshipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-
-        // Creature Data
-        //----------------------------------------------------------------
-        "Creature"
-        {
-            "CanRespawn"                "0"
-            "DisableClumpingBehavior"   "1"
-            "AttachWearables"
-            {
-                
-                "Wearable1" { "ItemDef" "6291" }
-                "Wearable2" { "ItemDef" "7082" }
-                "Wearable3" { "ItemDef" "7124" }
-                "Wearable4" { "ItemDef" "7132" }
-            }
-        }
-    }   
-    //====================================================================
-    // Fire golem
-    //====================================================================
-    "enemy_obsidian_golem"
-    {                                       
-        // General
-        //----------------------------------------------------------------
-        "Model"                     "models/items/warlock/golem/obsidian_golem/obsidian_golem.vmdl"
-        "BaseClass"                 "npc_dota_creature"
-        "SoundSet"                  "n_creep_Melee"
-        "Level"                     "1"
-        "ModelScale"                "1"
-        "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
-        "PathfindingSearchDepthScale" "0.1"
-
-        // Abilities
-        //----------------------------------------------------------------
-        "Ability1"                  ""
-        "Ability2"                  ""
-        "Ability3"                  ""
-        "Ability4"                  ""
-
-        // Armor
-        //----------------------------------------------------------------
-        "ArmorPhysical"             "0"
-        "MagicalResistance"         "0"
-
-        // Attack
-        //----------------------------------------------------------------
-        "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
-        "AttackDamageMin"           "11"
-        "AttackDamageMax"           "23"
-        "AttackRate"                "1.5"
-        "AttackAnimationPoint"      "0.80"
-        "AttackAcquisitionRange"    "900"
-        "AttackRange"               "128"
-        "ProjectileModel"           "" 
-        "ProjectileSpeed"           ""
-
-        // Bounds
-        //----------------------------------------------------------------
-        "RingRadius"                "70"
-        "HealthBarOffset"           "160"
-        "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
-
-        // Bounty
-        //----------------------------------------------------------------
-        "BountyXP"                  "8"
-        "BountyGoldMin"             "6"
-        "BountyGoldMax"             "8"
-
-        // Movement
-        //----------------------------------------------------------------
-        "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
-        "MovementSpeed"             "260"
-
-        // Status
-        //----------------------------------------------------------------
-        "StatusHealth"              "800"
-        "StatusHealthRegen"         "2"
-        "StatusMana"                "100"
-        "StatusManaRegen"           "2"
         
         // Vision
         //----------------------------------------------------------------

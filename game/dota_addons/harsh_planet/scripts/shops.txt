@@ -2,11 +2,13 @@
 {
     "consumables"
     {
-            "item"    "item_enchanted_bananas"
-            "item"    "item_enchanted_grapes"
+        "item"      "item_enchanted_bananas"
+        "item"      "item_enchanted_grapes"
     }
     "attributes"
     {
+        "item"      "item_boots_of_goddes"
+
     }
     "weapons_armor"
     {

@@ -38,6 +38,6 @@ end
 function necromonger_sacrifice:OnProjectileHit(hTarget, vLocation)
     self:PrecacheArgs(false)
     if hTarget ~= nil then
-        hTarget:Heal(self:GetSpecialValueFor('heal_amount'), hTarget)
+        hTarget:Heal(self.Args.HealAmount, hTarget)
     end
 end

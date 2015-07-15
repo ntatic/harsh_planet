@@ -2,9 +2,9 @@
 "DOTAAbilities"
 {
     "Version"   "1"
-    //====================================================================================
+    //==========================================================================
     // Ability: Dummy
-    //====================================================================================
+    //==========================================================================
     "dota_ability_dummy"
     {
         "BaseClass"                         "ability_datadriven"
@@ -30,9 +30,9 @@
             }
         }
     }
-    //====================================================================================
+    //==========================================================================
     // Critical Strike Aura
-    //====================================================================================
+    //==========================================================================
     "common_critical_aura"  
     {
         "BaseClass"                     "ability_lua"
@@ -59,15 +59,16 @@
             }
         }
     }
-    //====================================================================================
+    //==========================================================================
     // Necromonger: Sacriface
-    //====================================================================================
+    //==========================================================================
     "necromonger_sacrifice"
     {
         "BaseClass"                     "ability_lua"
         "ScriptFile"                    "abilities/necromonger_sacrifice.lua"
         "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
         "AbilityTextureName"            "necrolyte_heartstopper_aura"
+        "AbilityManaCost"               "50"
         "AbilityCooldown"               "5.0"
         "AbilitySpecial"
         {
@@ -93,38 +94,69 @@
             "soundfile"                 "soundevents/game_sounds_heroes/game_sounds_necrolyte.vsndevts"
         }
     }
-    //====================================================================================
+    //==========================================================================
     // Necromonger: Salvation
-    //====================================================================================
+    //==========================================================================
     "necromonger_salvation"
     {
         "BaseClass"                     "ability_lua"
         "ScriptFile"                    "abilities/necromonger_salvation.lua"
-        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-        "AbilityTextureName"            "necrolyte_heartstopper_aura"
-        "AbilityCooldown"               "1.5"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+        "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_FRIENDLY" // overided in lua
+        "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC" // overided in lua
+        "AbilityTextureName"            "abaddon_death_coil"
+        "AbilityCastRange"              "1200"
+        "AbilityCastRangeBuffer"        "250"
+        "AbilityManaCost"               "20"
+        "AbilityCooldown"               "2.5"
         "AbilitySpecial"
         {
             "01"
             {
                 "var_type"              "FIELD_INTEGER"
-                "heal_amount"           "20"
+                "heal_amount"           "100"
             }
             "02"
             {
                 "var_type"              "FIELD_INTEGER"
-                "radius"                "900"
-            }
-            "03"
-            {
-                "var_type"              "FIELD_INTEGER"
-                "projectile_speed"      "300"
+                "cast_range"            "1200"
             }
         }
         "precache"
         {
-            "particle"                  "particles/units/heroes/hero_necrolyte/necrolyte_pulse_friend.vpcf"
-            "soundfile"                 "soundevents/game_sounds_heroes/game_sounds_necrolyte.vsndevts"
+            "particle"                  "particles/econ/items/abaddon/abaddon_alliance/abaddon_death_coil_alliance.vpcf"
+            "particle"                  "particles/econ/items/abaddon/abaddon_alliance/abaddon_death_coil_alliance_explosion.vpcf"
+            "soundfile"                 "soundevents/game_sounds_heroes/game_sounds_abaddon.vsndevts"
         }
     }
+    //==========================================================================
+    // Obsidian: Immolation
+    //==========================================================================
+    "obsidian_golem_immolation"
+    {
+        "BaseClass"                     "ability_lua"
+        "ScriptFile"                    "abilities/obsidian_golem_immolation.lua"
+        "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityTextureName"            "brewmaster_fire_permanent_immolation"
+        "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"
+        "AbilitySpecial"
+        {
+            "01"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "dps"                   "50"
+            }
+            "02"
+            {
+                "var_type"              "FIELD_INTEGER"
+                "radius"                "250"
+            }
+        }
+        "precache"
+        {
+            "particle"                  "particles/units/heroes/hero_brewmaster/brewmaster_fire_immolation_child.vpcf"
+            "particle"                  "particles/status_fx/status_effect_burn.vpcf"
+        }
+    }
+
 }

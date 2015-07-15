@@ -117,24 +117,34 @@ end
 
 -- ai for necromonger
 function AI:_Necromonger(unit)
-    -- cast sacrifice if needed
+    -- sacrifice cast logic
     local aSacrifice = unit:GetAbilityByIndex(0)
     local sacrificeRadius = aSacrifice:GetSpecialValueFor('radius')
-    --local sacrificeHealtTransfer = aSacrifice:GetSpecialValueFor('health_transfer')
     if unit:GetHealthPercent() < 85 and aSacrifice:IsFullyCastable() then
-        -- calculate requirements
         local shouldCast = false
-        local targets = FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, sacrificeRadius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_ALL, 0, 0, false)
-        if unit:GetHealthPercent() < 30 then
+        local targets = FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, sacrificeRadius, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+        local count = #targets - 1 -- exclude original unit
+        if unit:GetHealthPercent() < 30 and count > 0 then
             shouldCast = true
         elseif unit:GetHealthPercent() < 50 and #targets >= 3 then
             shouldCast = true
         elseif #targets >= 5 then
             shouldCast = true
         end
-        -- cast ability if requirements met
         if shouldCast then
             unit:CastAbilityNoTarget(aSacrifice, -1)
+        end
+    end
+    -- salvation cast logic
+    local aSalvation = unit:GetAbilityByIndex(1)
+    local salvationCastRange =  aSalvation:GetSpecialValueFor('cast_range')
+    if aSalvation:IsFullyCastable() then
+        local targets = FindUnitsInRadius(unit:GetTeamNumber(), unit:GetAbsOrigin(), nil, salvationCastRange, DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false)
+        for _, target in pairs(targets) do
+            if target ~= unit and target:GetHealthPercent() <= 50 then
+                unit:CastAbilityOnTarget(target, aSalvation, -1)
+                break
+            end
         end
     end
     -- continue basic ai
